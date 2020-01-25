@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,14 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block header_extends %}{% endblock %}
 </head>
 
 <body>
-    <div>
-        <a href="{% url 'home' %}"><h1>Personal blog website</h1></a>
+    <div class="nav">
+        <a class="logo" href="{% url 'home' %}">
+            <h2>Personal blog website</h2>
+        </a>
+        <a href="/">Homepage</a>
+        <a href="{% url 'blog_list' %}">Blog</a>
+
     </div>
-    <hr>
     {% block content %}{% endblock %}
+
 </body>
 
 </html>
