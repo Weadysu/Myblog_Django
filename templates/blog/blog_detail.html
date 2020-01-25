@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ blog.title }}
+{% endblock %}
+
+
+{% block content %}
+    <h3>{{ blog.title }}</h3>
+    <p>Author: {{ blog.author }}</p>
+    <p>Release time: {{ blog.created_time|date:'m/d/y h:m:s' }}</p>
+    <p>
+        Blog type: <a href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a>
+    </p>
+    <p>{{ blog.content }}</p>
+{% endblock %}
