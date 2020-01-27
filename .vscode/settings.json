@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "../myEnv/bin/python"
+    "python.pythonPath": "../myEnv/bin/python",
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
 }

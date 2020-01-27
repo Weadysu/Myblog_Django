@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% block nav_blog_active %}active{% endblock %}
+
+{% block header_extends %}
+<link rel="stylesheet" href="/static/css/blog.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ blog.title }}</h3>
+            <ul class="blog-info-description p-0 mb-1">
+                <li>Author: {{ blog.author }}</li>
+                <li>
+                    Blog type: <a href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a>
+                </li>
+                <li>Release time: {{ blog.created_time|date:'m/d/Y h:m:s' }}</li>
+            </ul>
+            <p class="text-justify">{{ blog.content }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

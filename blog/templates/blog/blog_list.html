@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{# blog title #}
+{% block title %}
+Mysite
+{% endblock %}
+
+{% block header_extends %}
+<link rel="stylesheet" href="/static/css/blog.css">
+{% endblock %}
+
+{% block nav_blog_active %}
+active
+{% endblock %}
+
+{# blog content #}
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    {% block blog_list_title %}
+                    Blog List(#{{ blogs|length }})
+                    {% endblock %}
+                </div>
+                <div class="card-body">
+                    {% for blog in blogs %}
+                    <div class="blog">
+                        <h3><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }} </a></h3>
+                        <p class="blog-info">
+                            <i class="fas fa-tag mr-1"></i> <a class="mr-3" href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{blog.blog_type}}</a> 
+                            <i class="fas fa-clock mr-1"></i>{{blog.created_time|date:'m/d/Y'}}
+                        </p>
+                        <p>{{ blog.content|truncatechars:120 }}</p>
+                    </div>
+                    {% empty %}
+                    <div class="blog">
+                        <h3>-- No blogs. Please look forward! --</h3>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="d-none d-sm-block col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Blog Catalogue</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="m-0 p-0 blog-type">
+                        {% for blog_type in blog_types %}
+                        <li>
+                            <a href="{% url 'blogs_with_type' blog_type.pk %}">{{ blog_type.type_name }}</a>
+                        </li>
+                        {% empty %}
+                        <li>No catalogue</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
