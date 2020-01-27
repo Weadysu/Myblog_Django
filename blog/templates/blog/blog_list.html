@@ -21,15 +21,16 @@ active
             <div class="card">
                 <div class="card-header">
                     {% block blog_list_title %}
-                    Blog List(#{{ blogs|length }})
+                    Blog List(#{{ page_of_blogs.paginator.count|length }})
                     {% endblock %}
                 </div>
                 <div class="card-body">
-                    {% for blog in blogs %}
+                    {% for blog in page_of_blogs.object_list %}
                     <div class="blog">
                         <h3><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }} </a></h3>
                         <p class="blog-info">
-                            <i class="fas fa-tag mr-1"></i> <a class="mr-3" href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{blog.blog_type}}</a> 
+                            <i class="fas fa-tag mr-1"></i> <a class="mr-3"
+                                href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{blog.blog_type}}</a>
                             <i class="fas fa-clock mr-1"></i>{{blog.created_time|date:'m/d/Y'}}
                         </p>
                         <p>{{ blog.content|truncatechars:120 }}</p>
@@ -40,6 +41,35 @@ active
                     </div>
                     {% endfor %}
                 </div>
+            </div>
+            <div>
+                <ul class="pagination">
+                    {# Previous page #}
+                    {% if page_of_blogs.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_of_blogs.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                    {% endif %}
+
+                    {# All pages #}
+                    {% for page_num in page_of_blogs.paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_num }}">{{page_num}}</a>
+                    </li>
+                    {% endfor %}
+
+                    {# Next page #}
+                    {% if page_of_blogs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_of_blogs.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_of_blogs.paginator.num_pages }}">&raquo;</a></li>
+                    {% endif %}
+                    
+                </ul>
             </div>
         </div>
         <div class="d-none d-sm-block col-sm-4">
