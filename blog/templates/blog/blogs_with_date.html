@@ -1,0 +1,8 @@
+{% extends 'blog/blog_list.html' %}
+{% block title %}{{ blog_type.type_name }}{% endblock %}
+
+{% block blog_list_title %}
+    Date Archive:&nbsp{{ blog_date }}(#{{ page_of_blogs.paginator.count }})
+    <a class="pl-1" href="{% url 'blog_list' %}">All blogs</a> 
+{% endblock %}
+    

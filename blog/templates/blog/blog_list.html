@@ -15,7 +15,7 @@ active
 
 {# blog content #}
 {% block content %}
-<div class="container-fluid">
+<div class="container">
     <div class="row mt-3">
         <div class="col-sm-8">
             <div class="card">
@@ -98,6 +98,18 @@ active
                         </li>
                         {% empty %}
                         <li>No catalogue</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header"><h4>Date Archive</h4></div>
+                <div class="card-body">
+                    <ul class="p-0">
+                        {% for blog_date in blog_dates %}
+                        <li>
+                        <a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">{{ blog_date|date:'m/Y' }}</a>
+                        </li>
                         {% endfor %}
                     </ul>
                 </div>

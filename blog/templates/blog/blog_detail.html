@@ -16,9 +16,22 @@
                 <li>
                     Blog type: <a href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a>
                 </li>
-                <li>Release time: {{ blog.created_time|date:'m/d/Y h:m:s' }}</li>
+                <li>Release time: {{ blog.created_time|date:'m/d/Y H:i:s' }}</li>
             </ul>
             <p class="text-justify">{{ blog.content }}</p>
+            <div class="blog-more">
+                {% if previous_blog %}
+                    <p>Last blog: <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a></p>
+                {% else %}
+                    <p>Last blog: No blogs</p>
+                {% endif %}
+
+                {% if next_blog %}
+                    <p>Next blog: <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a></p>
+                {% else %}
+                    <p>Next blog: No blogs</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>
