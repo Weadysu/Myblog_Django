@@ -21,11 +21,11 @@ active
             <div class="card">
                 <div class="card-header">
                     {% block blog_list_title %}
-                    Blog List(#{{ page_of_blogs.paginator.count|length }})
+                    Blog List(#{{ page_of_blogs.paginator.count }})
                     {% endblock %}
                 </div>
                 <div class="card-body">
-                    {% for blog in page_of_blogs.object_list %}
+                    {% for blog in blogs %}
                     <div class="blog">
                         <h3><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }} </a></h3>
                         <p class="blog-info">
@@ -42,8 +42,8 @@ active
                     {% endfor %}
                 </div>
             </div>
-            <div>
-                <ul class="pagination">
+            <div class="pt-3">
+                <ul class="pagination justify-content-center">
                     {# Previous page #}
                     {% if page_of_blogs.has_previous %}
                     <li class="page-item">
@@ -54,10 +54,22 @@ active
                     {% endif %}
 
                     {# All pages #}
-                    {% for page_num in page_of_blogs.paginator.page_range %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_num }}">{{page_num}}</a>
-                    </li>
+                    {% for page_num in page_range %}
+                        {% if page_num == page_of_blogs.number %}
+                        <li class="page-item active">
+                            <span class="page-link">{{page_num}}</span class="page-link">
+                        </li>
+                        {% else %}
+                            {% if page_num == '...' %}
+                            <li class="page-item">
+                                <span class="page-link">{{page_num}}</span>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_num }}">{{page_num}}</a>
+                            </li>
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
 
                     {# Next page #}
@@ -66,9 +78,10 @@ active
                         <a class="page-link" href="?page={{ page_of_blogs.next_page_number }}">&raquo;</a>
                     </li>
                     {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ page_of_blogs.paginator.num_pages }}">&raquo;</a></li>
+                    <li class="page-item"><a class="page-link"
+                            href="?page={{ page_of_blogs.paginator.num_pages }}">&raquo;</a></li>
                     {% endif %}
-                    
+
                 </ul>
             </div>
         </div>
