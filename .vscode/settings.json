@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "../myEnv/bin/python",
+    "python.pythonPath": "/Users/weady/Learning/Learning_django/myEnv/bin/python",
     "python.linting.pylintArgs": ["--load-plugins", "pylint_django"]
 }
