@@ -62,8 +62,13 @@ def blogs_with_date(request, year, month):
 
 def blog_detail(request, blog_pk):
     blog = get_object_or_404(Blog, pk=blog_pk)
+    if not request.COOKIES.get('blog_%s_readed' % blog_pk):
+        blog.readed_num += 1
+        blog.save()
     content = {} 
     content['blog'] = blog
     content['previous_blog'] = Blog.objects.filter(created_time__gt=blog.created_time).last()
     content['next_blog'] = Blog.objects.filter(created_time__lt=blog.created_time).first()
-    return render(request, 'blog/blog_detail.html', content)
+    response = render(request, 'blog/blog_detail.html', content)
+    response.set_cookie('blog_%s_readed' % blog_pk, 'True')
+    return response

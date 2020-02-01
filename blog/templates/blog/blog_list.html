@@ -29,9 +29,12 @@ active
                     <div class="blog">
                         <h3><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }} </a></h3>
                         <p class="blog-info">
-                            <i class="fas fa-tag mr-1"></i> <a class="mr-3"
+                            <i class="fas fa-tag mr-1"></i> 
+                            <a class="mr-3"
                                 href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{blog.blog_type}}</a>
-                            <i class="fas fa-clock mr-1"></i>{{blog.created_time|date:'m/d/Y'}}
+                            <i class="fas fa-clock mr-1"></i>
+                            {{blog.created_time|date:'m/d/Y'}}
+                            <span class="ml-3">Readed({{ blog.readed_num }})</span>
                         </p>
                         <p>{{ blog.content|striptags|truncatechars:120 }}</p>
                     </div>
