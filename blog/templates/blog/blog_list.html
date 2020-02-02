@@ -34,7 +34,7 @@ active
                                 href="{% url 'blogs_with_type' blog.blog_type.pk %}">{{blog.blog_type}}</a>
                             <i class="fas fa-clock mr-1"></i>
                             {{blog.created_time|date:'m/d/Y'}}
-                            <span class="ml-3">Readed({{ blog.readed_num }})</span>
+                            <span class="ml-3">Readed({{ blog.get_read_num }})</span>
                         </p>
                         <p>{{ blog.content|striptags|truncatechars:120 }}</p>
                     </div>
