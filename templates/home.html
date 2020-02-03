@@ -14,4 +14,42 @@
 
 {% block content %}
     <h3 class="home-content">Welcome to my website!</h3>
+    <div id="container">
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+    <script>
+        // Diagrams settings
+        var options = {
+            chart: { type: 'line' },                         // Set type of diagram, default is line
+            title: { text: null },
+            xAxis: {
+                categories: {{ dates|safe }},   // x axis
+                tickmarkPlacement: 'on',
+            },
+            yAxis: {
+                title: { text: null },
+                labels: { enabled: false },
+                gridLineDashStyle: 'Dash',
+
+            },
+            series: [{                              // Data columns
+                name: 'NO. of Readed blogs',                        // Name of data columns
+                data: {{ read_nums }},                 // Data
+            }],
+            legend: { enabled: false },
+            credits: { enabled: false },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            }
+        };
+        // Initiation function of diagram
+        var chart = Highcharts.chart('container', options);
+    </script>
 {% endblock %}
